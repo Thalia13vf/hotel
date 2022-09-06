@@ -35,7 +35,8 @@ public class HotelRepository {
     }
 
     public boolean jaExisteEsseHotel(Long idHotel) {
-        return buscarPorId(idHotel).isPresent();
+        boolean jaExitse= buscarPorId(idHotel).isPresent();
+        return jaExitse;
     }
 
     public boolean existeEsseQuartoNesseHotel(Long idHotel, Integer numeroQuarto) {

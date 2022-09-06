@@ -18,9 +18,12 @@ public class HotelService {
     }
 
     public void criarHotel(Long idHotel, String nomeHotel) {
-        if(!hotelRepository.jaExisteEsseHotel(idHotel)){
-            hotelRepository.adicionarHotel(new Hotel(idHotel, nomeHotel));
+        boolean existe = hotelRepository.jaExisteEsseHotel(idHotel);
+        if(existe){
+            throw new RuntimeException("Hotel já existe");
         }
+
+        hotelRepository.adicionarHotel(new Hotel(idHotel, nomeHotel));
     }
 
     public void definirQuarto(Long idHotel, Integer numeroQuarto, String tipoQuarto) {
@@ -33,8 +36,7 @@ public class HotelService {
     }
 
     public Hotel buscarHotelPorId(Long idHotel) {
-        return hotelRepository.buscarPorId(idHotel)
-                .get();
+        return hotelRepository.buscarPorId(idHotel).get();
     }
 
     public List<Hotel> listarHoteis() {

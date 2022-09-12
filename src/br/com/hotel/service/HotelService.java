@@ -5,7 +5,9 @@ import br.com.hotel.entity.Quarto;
 import br.com.hotel.repository.HotelRepository;
 import br.com.hotel.repository.QuartoRepositoy;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class HotelService {
 
@@ -41,5 +43,25 @@ public class HotelService {
 
     public List<Hotel> listarHoteis() {
         return hotelRepository.listarHoteis();
+    }
+
+    public Quarto reservarQuarto(Long idHotel, String tipoQuarto,Date inicioReserva, Date fimReserva) {
+
+        Optional<Quarto> quarto = buscarQuarto(tipoQuarto, idHotel);
+        if (quarto.isPresent() && quarto.get().isDisponivel()) {
+            quarto.get().setInicioReservaQuarto(inicioReserva);
+            quarto.get().setFimReservaQuarto(fimReserva);
+            quarto.get().setDisponivel(false);
+            return quarto.get();
+        }
+        return null;
+    }
+
+    private Optional<Quarto> buscarQuarto(String tipoQuarto, Long idHotel) {
+        Hotel hotel = buscarHotelPorId(idHotel);
+        return hotel.getQuartos()
+                .stream().filter(quarto -> quarto.isDisponivel()
+                        && quarto.getTipoQuarto().equals(tipoQuarto))
+                .findFirst();
     }
 }

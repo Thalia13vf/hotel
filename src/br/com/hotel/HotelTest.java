@@ -14,15 +14,13 @@ import br.com.hotel.service.ReservaService;
 import java.sql.Date;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class HotelTest {
     public static void main(String[] args) {
         HotelService hotelService = new HotelService(new HotelRepository(), new QuartoRepositoy());
         EmpresaRepository empresaRepository = new EmpresaRepository();
-        FuncionarioRepository funcionarioRepository = new FuncionarioRepository(empresaRepository, new ArrayList<>());
+        FuncionarioRepository funcionarioRepository = new FuncionarioRepository(empresaRepository);
         EmpresaService empresaService = new EmpresaService(funcionarioRepository, empresaRepository);
         PoliticaDeReservaService politicaDeReservaService = new PoliticaDeReservaService(empresaService, funcionarioRepository);
         QuartoRepositoy quartoRepositoy = new QuartoRepositoy();
@@ -31,12 +29,12 @@ public class HotelTest {
         hotelService.criarHotel(1L, "hotel1");
         hotelService.criarHotel(2L, "hotel2");
 
-        hotelService.definirQuarto(1L, 1, "comum");
-        hotelService.definirQuarto(1L, 2, "comum");
-        hotelService.definirQuarto(2L, 1, "comum");
-        hotelService.definirQuarto(2L, 5, "presidencial");
+        hotelService.definirQuarto(1L, 1, TiposDeQuarto.COMUM.name());
+        hotelService.definirQuarto(1L, 2, TiposDeQuarto.COMUM.name());
+        hotelService.definirQuarto(1L, 3, TiposDeQuarto.DELUXE.name());
 
-
+        hotelService.definirQuarto(2L, 1, TiposDeQuarto.COMUM.name());
+        hotelService.definirQuarto(2L, 5, TiposDeQuarto.DELUXE.name());
 
 
         Empresa empresa = new Empresa(1L, "Company one");
@@ -54,12 +52,13 @@ public class HotelTest {
         //Reservar
 
         politicaDeReservaService.definirPoliticaDeEmpresa(1L, Arrays.asList(TiposDeQuarto.COMUM, TiposDeQuarto.DUPLO));
+        politicaDeReservaService.definirPoliticaDeFuncionario(1L, Arrays.asList(TiposDeQuarto.DELUXE));
 
         System.out.println("Empresa com politicas " + empresa);
 
 
-        Reserva reserva = reservaService.reservar(1L, 1L, TiposDeQuarto.COMUM, Date.from(Instant.now()), java.util.Date.from(Instant.now().plus(2, ChronoUnit.DAYS)));
+        Reserva reserva = reservaService.reservar(1L, 1L, TiposDeQuarto.DELUXE, Date.from(Instant.now()), java.util.Date.from(Instant.now().plus(2, ChronoUnit.DAYS)));
 
-        System.out.println("Resrva " + reserva);
+        System.out.println("Fim!");
     }
 }

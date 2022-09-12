@@ -11,8 +11,8 @@ public class FuncionarioRepository {
     private List<Funcionario> funcionarios;
     private final EmpresaRepository empresaRepository;
 
-    public FuncionarioRepository(EmpresaRepository empresaRepository, List<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
+    public FuncionarioRepository(EmpresaRepository empresaRepository) {
+        this.funcionarios = new ArrayList<>();
         this.empresaRepository = empresaRepository;
     }
 
@@ -20,6 +20,7 @@ public class FuncionarioRepository {
         Empresa empresa = this.empresaRepository.buscarEmpresaPorId(funcionario.getEmpresa().getIdEmpresa())
                 .orElseThrow(() -> new RuntimeException("Empresa não existe por isso não foi possivel adicionar funcionario."));
         empresa.setFuncionarios(funcionario);
+        funcionarios.add(funcionario);
         return funcionario;
     }
 

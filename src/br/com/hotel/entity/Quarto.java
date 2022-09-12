@@ -15,6 +15,7 @@ public class Quarto {
     public Quarto(Integer numeroQuarto, String tipoQuarto) {
         this.numeroQuarto = numeroQuarto;
         this.tipoQuarto = tipoQuarto;
+        this.disponivel = this.isDisponivel();
     }
 
     public Quarto() {
@@ -37,11 +38,9 @@ public class Quarto {
     }
 
     public boolean isDisponivel() {
-        if (this.inicioReservaQuarto == null && this.fimReservaQuarto == null) {
-            this.disponivel = true;
-        }
         return this.disponivel;
     }
+
 
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;

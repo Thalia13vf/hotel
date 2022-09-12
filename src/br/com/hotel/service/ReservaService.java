@@ -37,6 +37,7 @@ public class ReservaService {
             reserva.setIdHotel(idHotel);
             reserva.setTiposDeQuarto(tipoDeQuarto);
             System.out.println("Reserva confirmada com sucesso!" + reserva);
+            return reserva;
         }
         System.out.println("Erro ao reservar!");
         return null;

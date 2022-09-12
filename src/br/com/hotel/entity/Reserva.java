@@ -71,4 +71,16 @@ public class Reserva {
     public void setTiposDeQuarto(TiposDeQuarto tiposDeQuarto) {
         this.tiposDeQuarto = tiposDeQuarto;
     }
+
+    @Override
+    public String toString() {
+        return "Reserva{" +
+                "IdHotel=" + IdHotel +
+                ", idFuncionario=" + idFuncionario +
+                ", inicioReserva=" + inicioReserva +
+                ", fimReserva=" + fimReserva +
+                ", idQuarto=" + idQuarto +
+                ", tiposDeQuarto=" + tiposDeQuarto +
+                '}';
+    }
 }

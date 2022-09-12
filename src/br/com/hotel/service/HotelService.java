@@ -48,11 +48,13 @@ public class HotelService {
     public Quarto reservarQuarto(Long idHotel, String tipoQuarto,Date inicioReserva, Date fimReserva) {
 
         Optional<Quarto> quarto = buscarQuarto(tipoQuarto, idHotel);
-        if (quarto.isPresent() && quarto.get().isDisponivel()) {
-            quarto.get().setInicioReservaQuarto(inicioReserva);
-            quarto.get().setFimReservaQuarto(fimReserva);
-            quarto.get().setDisponivel(false);
-            return quarto.get();
+        if (quarto.isPresent() ) {
+            if (quarto.get().isDisponivel()) {
+                quarto.get().setInicioReservaQuarto(inicioReserva);
+                quarto.get().setFimReservaQuarto(fimReserva);
+                quarto.get().setDisponivel(false);
+                return quarto.get();
+            }
         }
         return null;
     }
@@ -60,8 +62,15 @@ public class HotelService {
     private Optional<Quarto> buscarQuarto(String tipoQuarto, Long idHotel) {
         Hotel hotel = buscarHotelPorId(idHotel);
         return hotel.getQuartos()
-                .stream().filter(quarto -> quarto.isDisponivel()
-                        && quarto.getTipoQuarto().equals(tipoQuarto))
+                .stream()
+                .filter(quarto -> verificarDisponibilidade(quarto) && quarto.getTipoQuarto().equals(tipoQuarto))
                 .findFirst();
+    }
+
+    private boolean verificarDisponibilidade(Quarto quarto) {
+        if (quarto.getInicioReservaQuarto() == null && quarto.getFimReservaQuarto() == null) {
+            quarto.setDisponivel(true);
+        }
+        return quarto.isDisponivel();
     }
 }

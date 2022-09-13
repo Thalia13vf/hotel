@@ -40,7 +40,7 @@ public class HotelTest {
         Empresa empresa = new Empresa(1L, "Company one");
         empresaService.criarEmpresa(empresa);
 
-        Funcionario funcionarioSemPolitica = new Funcionario(1L, empresa, null, "Maria");
+        Funcionario funcionarioSemPolitica = new Funcionario(1L, 1L, null, "Maria");
         System.out.println("FUNCIONARIO CRIADO " + funcionarioSemPolitica);
         empresaService.criarFuncionario(1L, 1L);
 

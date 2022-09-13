@@ -11,16 +11,15 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class EmpresaServiceTest {
 
-    FuncionarioRepository funcionarioRepository = new FuncionarioRepository(new EmpresaRepository(), new ArrayList<>());
+    EmpresaRepository empresaRepository = new EmpresaRepository();
+    FuncionarioRepository funcionarioRepository = new FuncionarioRepository(empresaRepository);
 
     @Mock
-    private EmpresaService empresaService = new EmpresaService(funcionarioRepository, new EmpresaRepository());
+    private EmpresaService empresaService = new EmpresaService(funcionarioRepository,empresaRepository);
 
 
     @Test
@@ -32,9 +31,10 @@ public class EmpresaServiceTest {
         empresa.setNome("Company");
         empresa.setFuncionarios(funcionario);
 
+        empresaService.criarEmpresa(empresa);
         empresaService.criarFuncionario(1L, 1L);
 
-        Assert.assertTrue(empresaService.funcionarioJaExiste(1L, 1L));
+        Assert.assertTrue(empresaService.funcionarioJaExiste(1L));
     }
 
     @Test(expected = RuntimeException.class)
@@ -52,18 +52,16 @@ public class EmpresaServiceTest {
 
     @Test
     public void deveExcluirFuncionario() {
-        Funcionario funcionario =
-                new Funcionario(1L, 1L, new Politicas(List.of(TiposDeQuarto.COMUM)), "Maria");
+
         Empresa empresa = new Empresa();
         empresa.setIdEmpresa(1L);
         empresa.setNome("Company");
-        empresa.setFuncionarios(funcionario);
-
+        empresaService.criarEmpresa(empresa);
         empresaService.criarFuncionario(1L, 1L);
 
         empresaService.excluirFuncionarios(1L);
 
-        Assert.assertFalse(empresaService.funcionarioJaExiste(1L, 1L));
+        Assert.assertFalse(empresaService.funcionarioJaExiste(1L));
     }
 
     @Test

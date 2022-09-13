@@ -17,8 +17,9 @@ public class FuncionarioRepository {
     }
 
     public Funcionario adicionarFuncionario(Funcionario funcionario) {
-        Empresa empresa = this.empresaRepository.buscarEmpresaPorId(funcionario.getEmpresa().getIdEmpresa())
+        Empresa empresa = this.empresaRepository.buscarEmpresaPorId(funcionario.getIdEmpresa())
                 .orElseThrow(() -> new RuntimeException("Empresa não existe por isso não foi possivel adicionar funcionario."));
+        funcionario.setIdEmpresa(empresa.getIdEmpresa());
         empresa.setFuncionarios(funcionario);
         funcionarios.add(funcionario);
         return funcionario;

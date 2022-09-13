@@ -56,6 +56,7 @@ public class Empresa {
     }
 
     public Empresa() {
+        this.funcionarios = new ArrayList<>();
     }
 
     @Override

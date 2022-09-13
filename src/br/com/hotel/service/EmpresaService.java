@@ -17,21 +17,24 @@ public class EmpresaService {
     }
 
     public void criarFuncionario(Long idEmpresa, Long idFuncionario) {
-        Optional<Empresa> empresa = empresaRepository.buscarEmpresaPorId(idEmpresa);
+        Empresa empresa = empresaRepository.buscarEmpresaPorId(idEmpresa).get();
 
-        if (funcionarioJaExiste(idEmpresa, idFuncionario)) {
+        if (funcionarioJaExiste(idFuncionario)) {
             throw new RuntimeException("Funcionario já existe!");
         }
-        funcionarioRepository.adicionarFuncionario(new Funcionario(idFuncionario, empresa.get()));
+        Long idEmpresa2 = empresa.getIdEmpresa();
+        Funcionario funcionario = new Funcionario();
+        funcionario.setIdEmpresa(idEmpresa2);
+        funcionario.setIdFuncionario(idFuncionario);
+        funcionarioRepository.adicionarFuncionario(funcionario);
     }
 
-    public boolean funcionarioJaExiste(Long idEmpresa, Long idFuncionario) {
+    public boolean funcionarioJaExiste( Long idFuncionario) {
         return funcionarioRepository.funcionarioJaExiste(idFuncionario);
     }
 
     public void excluirFuncionarios(Long idFuncionario) {
         funcionarioRepository.excluirFuncionario(idFuncionario);
-        //TODO: deletar politicas associadas a esse funcionario
     }
 
     public Optional<Empresa> buscarEmpresaPorId(Long idEmpresa){

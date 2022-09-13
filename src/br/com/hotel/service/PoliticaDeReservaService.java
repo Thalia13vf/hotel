@@ -42,7 +42,7 @@ public class PoliticaDeReservaService {
         if (funcionario.isPresent() && essaPoliticaEhDeFuncionario(funcionario.get())) {
            return funcionario.get().getPoliticasDeReservaDeQuartos().podeReservar(tiposDeQuarto);
         } else if(funcionarioDeveReceberPoliticaDeEmpresa(funcionario.get())) {
-            return Objects.requireNonNull(buscarPoliticasEmpresa(funcionario.get().getEmpresa().getIdEmpresa())).podeReservar(tiposDeQuarto);
+            return Objects.requireNonNull(buscarPoliticasEmpresa(funcionario.get().getIdEmpresa())).podeReservar(tiposDeQuarto);
         }
         return true;
     }
@@ -52,7 +52,7 @@ public class PoliticaDeReservaService {
     }
 
     private boolean funcionarioDeveReceberPoliticaDeEmpresa(Funcionario funcionario) {
-        Optional<Empresa> empresa = empresaService.buscarEmpresaPorId(funcionario.getEmpresa().getIdEmpresa());
+        Optional<Empresa> empresa = empresaService.buscarEmpresaPorId(funcionario.getIdEmpresa());
         return !essaPoliticaEhDeFuncionario(funcionario) && empresa.get().getPoliticasDeReservaDeQuarto() != null;
     }
 

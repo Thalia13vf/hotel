@@ -3,7 +3,7 @@ package br.com.hotel.entity;
 public class Funcionario {
     private Long idFuncionario;
 
-    private Empresa empresa;
+    private Long idEmpresa;
 
     private Politicas politicasDeReservaDeQuartos;
 
@@ -11,9 +11,9 @@ public class Funcionario {
     public Funcionario() {
     }
 
-    public Funcionario(Long idFuncionario, Empresa empresa) {
+    public Funcionario(Long idFuncionario, Long idEmpresa) {
         this.idFuncionario = idFuncionario;
-        this.empresa = empresa;
+        this.idEmpresa = idEmpresa;
     }
 
     public Long getIdFuncionario() {
@@ -24,12 +24,12 @@ public class Funcionario {
         this.idFuncionario = idFuncionario;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public Long getIdEmpresa() {
+        return idEmpresa;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setIdEmpresa(Long idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     public Politicas getPoliticasDeReservaDeQuartos() {
@@ -48,9 +48,9 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public Funcionario(Long idFuncionario,Empresa empresa, Politicas politicasDeReservaDeQuartos, String nome) {
+    public Funcionario(Long idFuncionario,Long idEmpresa, Politicas politicasDeReservaDeQuartos, String nome) {
         this.idFuncionario = idFuncionario;
-        this.empresa = empresa;
+        this.idEmpresa = idEmpresa;
         this.politicasDeReservaDeQuartos = politicasDeReservaDeQuartos;
         this.nome = nome;
     }

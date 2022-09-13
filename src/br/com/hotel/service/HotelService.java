@@ -38,7 +38,10 @@ public class HotelService {
     }
 
     public Hotel buscarHotelPorId(Long idHotel) {
-        return hotelRepository.buscarPorId(idHotel).get();
+        if (hotelRepository.buscarPorId(idHotel).isPresent()) {
+            return hotelRepository.buscarPorId(idHotel).get();
+        }
+        return null;
     }
 
     public List<Hotel> listarHoteis() {
@@ -61,10 +64,13 @@ public class HotelService {
 
     private Optional<Quarto> buscarQuarto(String tipoQuarto, Long idHotel) {
         Hotel hotel = buscarHotelPorId(idHotel);
-        return hotel.getQuartos()
-                .stream()
-                .filter(quarto -> verificarDisponibilidade(quarto) && quarto.getTipoQuarto().equals(tipoQuarto))
-                .findFirst();
+        if (hotel != null){
+            return hotel.getQuartos()
+                    .stream()
+                    .filter(quarto -> verificarDisponibilidade(quarto) && quarto.getTipoQuarto().equals(tipoQuarto))
+                    .findFirst();
+        }
+        return Optional.empty();
     }
 
     private boolean verificarDisponibilidade(Quarto quarto) {

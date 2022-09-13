@@ -47,15 +47,6 @@ public class Hotel {
         return quarto;
     }
 
-    /*@Override
-    public String toString() {
-        return "hotel" + "\n" +
-                "{" + "\n" +
-                    "  idHotel:" + idHotel + "\n" +
-                    "  nome: " + nome + "\n" +
-                    "  quartos: {" + "\n" + quartos +
-                '}';
-    }*/
 
     @Override
     public String toString() {

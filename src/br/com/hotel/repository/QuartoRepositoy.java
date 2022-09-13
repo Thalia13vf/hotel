@@ -9,8 +9,16 @@ import java.util.Optional;
 
 public class QuartoRepositoy {
 
+    private List<Quarto> quartos;
+
+    public QuartoRepositoy() {
+       this.quartos = new ArrayList<>();
+    }
+
     public Quarto adicionarQuarto(Quarto quarto, Hotel hotel) {
         hotel.adicionarQuarto(quarto);
+        quarto.setIdHotel(hotel.getIdHotel());
+        this.quartos.add(quarto);
         return quarto;
     }
 

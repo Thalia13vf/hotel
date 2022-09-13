@@ -12,6 +12,8 @@ public class Quarto {
 
     private Date fimReservaQuarto;
 
+    private Long idHotel;
+
     public Quarto(Integer numeroQuarto, String tipoQuarto) {
         this.numeroQuarto = numeroQuarto;
         this.tipoQuarto = tipoQuarto;
@@ -62,15 +64,20 @@ public class Quarto {
         this.fimReservaQuarto = fimReservaQuarto;
     }
 
+    public Long getIdHotel() {
+        return idHotel;
+    }
 
-    @Override
-    public String toString() {
-        return "Quarto{" +
-                "numeroQuarto=" + numeroQuarto +
-                ", tipoQuarto='" + tipoQuarto + '\'' +
-                ", disponivel=" + disponivel +
-                ", inicioReservaQuarto=" + inicioReservaQuarto +
-                ", fimReservaQuarto=" + fimReservaQuarto +
-                '}';
+    public void setIdHotel(Long idHotel) {
+        this.idHotel = idHotel;
+    }
+
+    public Quarto(Integer numeroQuarto, String tipoQuarto, boolean disponivel, Date inicioReservaQuarto, Date fimReservaQuarto, Long idHotel) {
+        this.numeroQuarto = numeroQuarto;
+        this.tipoQuarto = tipoQuarto;
+        this.disponivel = disponivel;
+        this.inicioReservaQuarto = inicioReservaQuarto;
+        this.fimReservaQuarto = fimReservaQuarto;
+        this.idHotel = idHotel;
     }
 }

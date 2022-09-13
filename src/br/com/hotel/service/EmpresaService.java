@@ -22,11 +22,7 @@ public class EmpresaService {
         if (funcionarioJaExiste(idFuncionario)) {
             throw new RuntimeException("Funcionario já existe!");
         }
-        Long idEmpresa2 = empresa.getIdEmpresa();
-        Funcionario funcionario = new Funcionario();
-        funcionario.setIdEmpresa(idEmpresa2);
-        funcionario.setIdFuncionario(idFuncionario);
-        funcionarioRepository.adicionarFuncionario(funcionario);
+        funcionarioRepository.adicionarFuncionario(new Funcionario(idEmpresa, idFuncionario));
     }
 
     public boolean funcionarioJaExiste( Long idFuncionario) {
